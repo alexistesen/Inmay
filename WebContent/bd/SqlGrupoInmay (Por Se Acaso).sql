@@ -149,7 +149,7 @@
  
  -- INSERCIONES POR DEFECTO
  
- -- -- 1Â° INSERTANDO LAS CIUDADES
+ -- -- 1° INSERTANDO LAS CIUDADES
  
  insert into tb_pais values (1,'PERU');
  
@@ -180,7 +180,7 @@
 (24, 'TUMBES'),
 (25, 'UCAYALI');
 
--- -- 2Â° INSERTANDO LAS PROVINCIAS
+-- -- 2° INSERTANDO LAS PROVINCIAS
 
  insert into tb_provincia (idProvincia, descProvincia, idCiudad) values
 (1, 'CHACHAPOYAS ', 1),
@@ -377,7 +377,7 @@
 (192, 'PADRE ABAD', 25),
 (193, 'PURUS', 25);
 
--- -- 3Â° INSERTANDO LOS DISTRITOS (COMPLEJO) :(
+-- -- 3° INSERTANDO LOS DISTRITOS (COMPLEJO) :(
 
 insert into tb_distrito (idDistrito, descDistrito, idProvincia) values
 (1, 'CHACHAPOYAS', 1),
@@ -2213,7 +2213,7 @@ insert into tb_distrito (idDistrito, descDistrito, idProvincia) values
 (1831, 'PURUS', 193);
 
 
--- -- 5Â° INSERTANDO AL USUARIO ADMINISTRADOR
+-- -- 5° INSERTANDO AL USUARIO ADMINISTRADOR
  
   insert into tb_categoria (nombreCat,descripcionCat) values
   ('Categoria 1','Esto trata sobre la Categoria 1'),
@@ -2257,7 +2257,7 @@ insert into tb_distrito (idDistrito, descDistrito, idProvincia) values
   (1,1,5),
   (1,2,10);
  
- -- 6Â° CREANDO PROCEDIMIENTO DE INSERCION
+ -- 6° CREANDO PROCEDIMIENTO DE INSERCION
  
 	-- 6.1 LISTADO DE USUARIOS
     DELIMITER //
@@ -2275,7 +2275,7 @@ insert into tb_distrito (idDistrito, descDistrito, idProvincia) values
     INNER JOIN TB_ESTADOU TE ON TE.idEstado_U=TU.idEstado_U
     WHERE TU.idEstado_U=1;
     END//
-    
+    DELIMITER ;
 		-- 6.1.1 LLAMANDO AL PROCEDIMIENTO
 		CALL LISTADO_USUARIOS;
     
@@ -2292,7 +2292,7 @@ insert into tb_distrito (idDistrito, descDistrito, idProvincia) values
     INNER JOIN TB_USUARIOS TU ON TP.idUsuario = TP.idUsuario
     INNER JOIN TB_ESTADOPEDIDO TEP ON TEP.idEstadoP = TP.idEstadoP;
     END//
-    
+    DELIMITER ;
 		-- 6.1.1 LLAMANDO AL PROCEDIMIENTO
 		CALL TB_PEDIDOS;  
         
@@ -2305,7 +2305,7 @@ insert into tb_distrito (idDistrito, descDistrito, idProvincia) values
     inner join tb_categoria tc on tpr.idCategoria=tc.idCategoria
     inner join tb_proveedor tpv on tpv.idProveedor=tpr.idProveedor;
     END//
-    
+    DELIMITER ;
 		-- 6.1.1 LLAMANDO AL PROCEDIMIENTO
 		CALL LISTADO_PRODUCTOS; 
         
@@ -2313,14 +2313,16 @@ insert into tb_distrito (idDistrito, descDistrito, idProvincia) values
 	     DELIMITER $$    
     CREATE PROCEDURE BUSCAR_PRODUCTO (id int)
     BEGIN
-    select idProducto,desProducto,stock,precioU,c.nombreCat,p.empresa
+    select idProducto,descProducto,stock,precioU,c.nombreCat,p.empresa
     from tb_producto a 
     inner join tb_categoria c on a.idCategoria=c.idCategoria 
     inner join tb_proveedor p on a.idProveedor=p.idProveedor
     where idProducto=id;
-    END;
+    END$$
+    DELIMITER ;
+    call BUSCAR_PRODUCTO(1);
     
-    call BUSCAR_PRODUCTO(1)
+    -- drop procedure BUSCAR_PRODUCTO
 
    
      DELIMITER $$    
@@ -2331,15 +2333,14 @@ insert into tb_distrito (idDistrito, descDistrito, idProvincia) values
     inner join tb_categoria c on a.idCategoria=c.idCategoria 
     inner join tb_proveedor p on a.idProveedor=p.idProveedor
     where a.idCategoria=id;
-    END;
-    drop procedure listar_producto_cat
-    
+    END$$
+    -- drop procedure listar_producto_cat
+    DELIMITER ;
     
     call LISTAR_PRODUCTO_CAT(1);
-    
     -- -**********************************************************----
     
-	use bd_inmay;
+	-- use bd_inmay;
     select * from tb_usuarios;
 	
     ALTER TABLE tb_usuarios CHANGE column claveU claveU varchar(100);
