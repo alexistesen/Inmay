@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<taglib>
+	<tlibversion>1.0</tlibversion>
+	<jspversion>1.0</jspversion>
+	<shortname>tools</shortname>
+	
+
+	
+	<tag>
+		<name>LlenarDepartamentos</name>
+		<tagclass>etiquetas.cboCiudadTag</tagclass>
+		<bodycontent>empty</bodycontent>
+		<info>Esto llena un combo de departamentos</info>
+	</tag> <!-- otras etiquetas de la librería -->
+	
+	<tag>
+		<name>LlenarRoles</name>
+		<tagclass>etiquetas.cboRol</tagclass>
+		<bodycontent>empty</bodycontent>
+		<info>Esto llena un combo de Roles</info>
+	</tag> <!-- otras etiquetas de la librería -->
+	
+	<tag>
+		<name>LlenarCategorias</name>
+		<tagclass>etiquetas.cboCategorias</tagclass>
+		<bodycontent>empty</bodycontent>
+		<info>Esto llena un combo de Categorias de los Productos</info>
+	</tag> <!-- otras etiquetas de la librería -->
+	
+	<tag>
+		<name>LlenarProveedores</name>
+		<tagclass>etiquetas.cboProveedor</tagclass>
+		<bodycontent>empty</bodycontent>
+		<info>Esto llena un combo de Proveedores de los Productos</info>
+	</tag> <!-- otras etiquetas de la librería -->
+	
+	
+	
+</taglib> 
