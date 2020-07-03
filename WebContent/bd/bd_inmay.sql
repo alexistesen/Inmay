@@ -149,7 +149,7 @@
  
  -- INSERCIONES POR DEFECTO
  
- -- -- 1Â° INSERTANDO LAS CIUDADES
+ -- -- 1° INSERTANDO LAS CIUDADES
  
  insert into tb_pais values (1,'PERU');
  
@@ -180,7 +180,7 @@
 (24, 'TUMBES'),
 (25, 'UCAYALI');
 
--- -- 2Â° INSERTANDO LAS PROVINCIAS
+-- -- 2° INSERTANDO LAS PROVINCIAS
 
  insert into tb_provincia (idProvincia, descProvincia, idCiudad) values
 (1, 'CHACHAPOYAS ', 1),
@@ -377,7 +377,7 @@
 (192, 'PADRE ABAD', 25),
 (193, 'PURUS', 25);
 
--- -- 3Â° INSERTANDO LOS DISTRITOS (COMPLEJO) :(
+-- -- 3° INSERTANDO LOS DISTRITOS (COMPLEJO) :(
 
 insert into tb_distrito (idDistrito, descDistrito, idProvincia) values
 (1, 'CHACHAPOYAS', 1),
@@ -2213,7 +2213,7 @@ insert into tb_distrito (idDistrito, descDistrito, idProvincia) values
 (1831, 'PURUS', 193);
 
 
--- -- 5Â° INSERTANDO AL USUARIO ADMINISTRADOR
+-- -- 5° INSERTANDO AL USUARIO ADMINISTRADOR
  
   insert into tb_categoria (nombreCat,descripcionCat) values
   ('Categoria 1','Esto trata sobre la Categoria 1'),
@@ -2257,7 +2257,7 @@ insert into tb_distrito (idDistrito, descDistrito, idProvincia) values
   (1,1,5),
   (1,2,10);
  
- -- 6Â° CREANDO PROCEDIMIENTO DE INSERCION
+ -- 6° CREANDO PROCEDIMIENTO DE INSERCION
  
 	-- 6.1 LISTADO DE USUARIOS
     DELIMITER //
@@ -2347,266 +2347,5 @@ insert into tb_distrito (idDistrito, descDistrito, idProvincia) values
     update tb_usuarios set claveU = sha1("josetesen")where idUsuario = 1;
 
 	select * from tb_producto;
-
--- 
-
-
-
-
--- sp_savePais, sp_updatePais, sp_deletePais, sp_findPais, sp_listPaises
-select * from tb_usuarios;
--- Procedure para Usuario
--- Save
-DELIMITER $$
-create procedure sp_saveUsuario 
-(IN nom varchar(30),IN ape varchar(30),IN mail varchar(40), IN clave varchar(15), IN frec date,IN dir varchar(100),IN pais int(11),IN ciudad int(11),IN provincia int(11),IN dist int(11),IN telf varchar(15),IN rol int(11),IN estado int(11),IN staff boolean)
-BEGIN
-insert into tb_usuarios values(null,nom,ape,mail,clave,frec,dir,pais,ciudad,provincia,dist,telf,rol,estado);
-END$$
-DELIMITER ;
-call sp_saveUsuario('Luis','Bustamante','lbustamanet@gmail.com','123456',curdate(),'Av. Uno',1,1,1,1,'555555',1,1,true);
-
--- update
-DELIMITER $$
-create procedure sp_updateUsuario(cod int(11),nom varchar(30),ape varchar(30),mail varchar(40), clave varchar(15), frec date,dir varchar(100),pais int(11),ciudad int(11),provincia int(11),dist int(11),telf varchar(15),rol int(11),estado int(11),staff boolean)
-BEGIN
-update tb_producto set 
-nombreU = nom,
-apellidoU=ape,
-emailU=mail,
-claveU=clave,
-fRegistroU=frec,
-direccionU=dir,
-idPais=pais,
-idCiudad=ciudad,
-idProvincia=provincia,
-idDistrito=dsit,
-telefonoU=telf,
-idRol=rol,
-idEstado_U=estado,
-is_staff=staff
-where idUsuario=cod;
-END$$
-DELIMITER ;
-
--- find
-DELIMITER $$
-create procedure sp_findUsuario(cod int(11))
-BEGIN
-select * from tb_usuarios where isUsuario =cod;
-END$$
-DELIMITER ;
-call sp_findUsuario(1);
-
--- delete
-DELIMITER $$
-create procedure sp_deleteUsuario(cod int(11) )
-BEGIN
-delete from tb_usuarios where idUsuario=cod;
-END$$
-DELIMITER ;
-
-call sp_deleteUsuario(2);
-
--- listar
-DELIMITER $$
-create procedure sp_listUsuario()
-BEGIN
-select * from tb_usuarios;
-END$$
-DELIMITER ;
-call sp_listUsuario;
-
-
-
--- Procedure para Producto
--- Save
-DELIMITER $$
-create procedure sp_saveProducto(IN nomp varchar(50),IN idcat int(11),IN stk int(11),IN pre double,IN idprov int(11))
-BEGIN
-insert into tb_producto values(null,nomp,idcat,stk,pre,idprov);
-END$$
-DELIMITER ;
-call sp_saveProducto('Guantes',2,50,10.00,1);
-
--- Delete
-DELIMITER $$
-create procedure sp_deleteProducto(cod int(11))
-BEGIN
-delete from tb_producto where idProducto = cod;
-END$$
-DELIMITER ;
-call sp_deleteProducto(3);
-
--- Update
-DELIMITER $$
-create procedure sp_updateProducto(cod int(11),nomp varchar(50),idcat int(11), stk int(11), pre double,idprov int(11))
-BEGIN
-update tb_producto set 
-descProducto = nomp,
-idCategoria=idcat,
-stock=stk,precioU=pre,
-idProveedor=idprov where idProducto=cod;
-END$$
-DELIMITER ;
-call sp_updateProducto(4,'Rodilleras',1,50,45.78,2);
-
--- find
-DELIMITER $$
-create procedure sp_findProducto(cod int(11))
-BEGIN
-select * from tb_producto where idProducto = cod;
-END$$
-DELIMITER ;
-call sp_findProducto(4);
-
--- listar
-DELIMITER $$
-create procedure sp_listProducto()
-BEGIN
-select * from tb_producto;
-END$$
-DELIMITER ;
-call sp_listProducto;
-
---  Procedures para Proveedor
-
--- Procedure para Proveedor
--- Save
-DELIMITER $$
-create procedure sp_saveProveedor(IN empresa varchar(50),IN cargo varchar(30))
-BEGIN
-insert into tb_proveedor values(null,empresa,cargo);
-END$$
-DELIMITER ;
-call sp_saveProveedor('Securitas S.A','ASISTENTE');
-select * from tb_proveedor;
--- Delete
-DELIMITER $$
-create procedure sp_deleteProveedor(cod int(11))
-BEGIN
-delete from tb_proveedor where idProveedor = cod;
-END$$
-DELIMITER ;
-call sp_deleteProveedor(4);
-
--- Update
-DELIMITER $$
-create procedure sp_updateProveedor(cod int(11), empresa varchar(50),cargo varchar(30))
-BEGIN
-update tb_proveedor set 
-empresa = empresa,
-cargo=cargo
-where idProveedor=cod;
-END$$
-DELIMITER ;
-call sp_updateProveedor(5,'SIDERPERU','GERENTE');
-
--- find
-DELIMITER $$
-create procedure sp_findProveedor(cod int(11))
-BEGIN
-select * from tb_proveedor where idProveedor = cod;
-END$$
-DELIMITER ;
-call sp_findProveedor(5);
-
--- listar
-DELIMITER $$
-create procedure sp_listProveedor()
-BEGIN
-select * from tb_proveedor;
-END$$
-DELIMITER ;
-call sp_listProveedor;
-
--- listar
-DELIMITER $$
-create procedure sp_listCategorias()
-BEGIN
-select * from tb_categoria;
-END$$
-DELIMITER ;
-call sp_listCategorias;
-
-
-
--- Procedure para paises
-
--- Listado de PAISES
-DELIMITER $$
-create procedure  sp_listarPaises()
-BEGIN
-	select * from tb_pais;
-END$$
-DELIMITER ;
-call sp_listarPaises();
-
--- Busqueda de PAISES
-DELIMITER $$
-create procedure  sp_findPaises(cod int(11))
-BEGIN
-	select * from tb_pais where idPais=cod;
-END$$
-DELIMITER ;
-call sp_findPaises(1);
-
--- Listado ciudad
-DELIMITER $$
-create procedure  sp_listarCiudad()
-BEGIN
-	select * from tb_ciudad;
-END$$
-DELIMITER ;
-call sp_listarCiudad();
-
--- Busqueda de Ciudad
-DELIMITER $$
-create procedure  sp_findCiudad(cod int(11))
-BEGIN
-	select * from tb_ciudad where idCiudad=cod;
-END$$
-DELIMITER ;
-call sp_findCiudad(1);
-
-
--- Lista Provincia
-DELIMITER $$
-create procedure  sp_listarProvincia()
-BEGIN
-	select * from tb_provincia;
-END$$
-DELIMITER ;
-call sp_listarProvincia();
-
--- Busqueda Provincia
-DELIMITER $$
-create procedure  sp_findProvincia(cod int(11))
-BEGIN
-	select * from tb_provincia where idProvincia=cod;
-END$$
-DELIMITER ;
-call sp_findProvincia(1);
-
--- Distrito
-DELIMITER $$
-create procedure  sp_listarDistrito()
-BEGIN
-	select * from tb_distrito;
-END$$
-DELIMITER ;
-call sp_listarDistrito();
-
--- sp_lista_pais, Busqueda de PAISES
-DELIMITER $$
-create procedure  sp_findDistrito(cod int(11))
-BEGIN
-	select * from tb_distrito where idDistrito=cod;
-END$$
-DELIMITER ;
-call sp_findDistrito(1);
-
--- 
-
 
 	

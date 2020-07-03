@@ -475,5 +475,21 @@
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <jsp:include page="redund/scripts_final.html" />
+    
+    <script>
+  window.watsonAssistantChatOptions = {
+      integrationID: "d2e13f46-5ea2-43a5-83f4-b162a95cd37a", // The ID of this integration.
+      region: "us-south", // The region your integration is hosted in.
+      serviceInstanceID: "60c59142-2631-49e2-82ba-4323fc5f7845", // The ID of your service instance.
+      onLoad: function(instance) { instance.render(); }
+    };
+  setTimeout(function(){
+    const t=document.createElement('script');
+    t.src="https://web-chat.global.assistant.watson.appdomain.cloud/loadWatsonAssistantChat.js";
+    document.head.appendChild(t);
+  });
+</script>
+    
+    
 </body>
 </html>
