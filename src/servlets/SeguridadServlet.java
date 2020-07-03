@@ -65,7 +65,7 @@ public class SeguridadServlet extends HttpServlet {
 			session.setAttribute("usuario", usuario);
 			url="/admin/inicio";
 		} else {
-			mensaje="Ingresa nuevamente pendejo!";
+			mensaje="Ingresa nuevamente por favor!";
 			url="Login.jsp";
 		}
 		
